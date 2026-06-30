@@ -1,0 +1,157 @@
+/* --- Deep Focus Themes System --- */
+
+/* 1. Zen Dark (Default Neon Theme) */
+:root, [data-theme="zen-dark"] {
+  --bg-app: #04020a;
+  --bg-gradient: linear-gradient(135deg, #04020a 0%, #0d061c 100%);
+  --glow-1: rgba(236, 72, 153, 0.28); /* Neon Pink */
+  --glow-2: rgba(139, 92, 246, 0.22); /* Neon Purple */
+  --bg-glass: rgba(12, 6, 22, 0.7);
+  --bg-header-glass: rgba(4, 2, 10, 0.75);
+  --border-glass: rgba(255, 255, 255, 0.06);
+  --border-glass-highlight: rgba(255, 255, 255, 0.12);
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --accent: #ec4899; /* Neon Magenta */
+  --accent-rgb: 236, 72, 153;
+  --accent-secondary: #a855f7; /* Neon Violet */
+  --accent-hover: #f472b6;
+  --accent-alpha-10: rgba(236, 72, 153, 0.1);
+  --accent-alpha-20: rgba(236, 72, 153, 0.2);
+  --accent-alpha-30: rgba(236, 72, 153, 0.3);
+  --bg-button-secondary: rgba(255, 255, 255, 0.04);
+  --bg-button-secondary-hover: rgba(255, 255, 255, 0.09);
+  --btn-primary-text: #ffffff;
+  --card-bg-active: rgba(236, 72, 153, 0.12);
+  --pulse-glow: rgba(236, 72, 153, 0.45);
+}
+
+/* 2. Nordic Frost (Neon Cyan / polar blue) */
+[data-theme="nordic-frost"] {
+  --bg-app: #010810;
+  --bg-gradient: linear-gradient(135deg, #010810 0%, #03182b 100%);
+  --glow-1: rgba(0, 240, 255, 0.26); /* Electric Cyan */
+  --glow-2: rgba(0, 128, 255, 0.18); /* Electric Blue */
+  --bg-glass: rgba(6, 22, 38, 0.7);
+  --bg-header-glass: rgba(1, 8, 16, 0.75);
+  --border-glass: rgba(255, 255, 255, 0.06);
+  --border-glass-highlight: rgba(255, 255, 255, 0.12);
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --accent: #00f0ff; /* Electric Cyan */
+  --accent-rgb: 0, 240, 255;
+  --accent-secondary: #3b82f6; /* Electric Blue */
+  --accent-hover: #38bdf8;
+  --accent-alpha-10: rgba(0, 240, 255, 0.1);
+  --accent-alpha-20: rgba(0, 240, 255, 0.2);
+  --accent-alpha-30: rgba(0, 240, 255, 0.3);
+  --bg-button-secondary: rgba(255, 255, 255, 0.04);
+  --bg-button-secondary-hover: rgba(255, 255, 255, 0.09);
+  --btn-primary-text: #010810;
+  --card-bg-active: rgba(0, 240, 255, 0.12);
+  --pulse-glow: rgba(0, 240, 255, 0.45);
+}
+
+/* 3. Forest Moss (Neon Emerald / Cyber Green) */
+[data-theme="forest-moss"] {
+  --bg-app: #010b06;
+  --bg-gradient: linear-gradient(135deg, #010b06 0%, #031f10 100%);
+  --glow-1: rgba(16, 185, 129, 0.26); /* Neon Emerald */
+  --glow-2: rgba(5, 150, 105, 0.16);  /* Dark Emerald */
+  --bg-glass: rgba(5, 26, 15, 0.7);
+  --bg-header-glass: rgba(1, 11, 6, 0.75);
+  --border-glass: rgba(255, 255, 255, 0.05);
+  --border-glass-highlight: rgba(255, 255, 255, 0.12);
+  --text-primary: #f8fafc;
+  --text-secondary: #64748b;
+  --accent: #10b981; /* Neon Emerald */
+  --accent-rgb: 16, 185, 129;
+  --accent-secondary: #059669;
+  --accent-hover: #34d399;
+  --accent-alpha-10: rgba(16, 185, 129, 0.1);
+  --accent-alpha-20: rgba(16, 185, 129, 0.2);
+  --accent-alpha-30: rgba(16, 185, 129, 0.3);
+  --bg-button-secondary: rgba(255, 255, 255, 0.04);
+  --bg-button-secondary-hover: rgba(255, 255, 255, 0.09);
+  --btn-primary-text: #010b06;
+  --card-bg-active: rgba(16, 185, 129, 0.12);
+  --pulse-glow: rgba(16, 185, 129, 0.45);
+}
+
+/* 4. Solarized Amber (Vibrant Cyber Orange) */
+[data-theme="solarized-amber"] {
+  --bg-app: #080401;
+  --bg-gradient: linear-gradient(135deg, #080401 0%, #1f0f03 100%);
+  --glow-1: rgba(245, 158, 11, 0.26); /* Cyber Amber */
+  --glow-2: rgba(217, 119, 6, 0.18);  /* Deep Amber */
+  --bg-glass: rgba(24, 12, 3, 0.7);
+  --bg-header-glass: rgba(8, 4, 1, 0.75);
+  --border-glass: rgba(255, 255, 255, 0.05);
+  --border-glass-highlight: rgba(255, 255, 255, 0.12);
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --accent: #f59e0b; /* Neon Amber */
+  --accent-rgb: 245, 158, 11;
+  --accent-secondary: #ea580c; /* Orange */
+  --accent-hover: #fbbf24;
+  --accent-alpha-10: rgba(245, 158, 11, 0.1);
+  --accent-alpha-20: rgba(245, 158, 11, 0.2);
+  --accent-alpha-30: rgba(245, 158, 11, 0.3);
+  --bg-button-secondary: rgba(255, 255, 255, 0.04);
+  --bg-button-secondary-hover: rgba(255, 255, 255, 0.09);
+  --btn-primary-text: #080401;
+  --card-bg-active: rgba(245, 158, 11, 0.12);
+  --pulse-glow: rgba(245, 158, 11, 0.45);
+}
+
+/* 5. Sunset Ember (Vibrant Neon Flame Red) */
+[data-theme="sunset-ember"] {
+  --bg-app: #080102;
+  --bg-gradient: linear-gradient(135deg, #080102 0%, #210307 100%);
+  --glow-1: rgba(239, 68, 68, 0.28); /* Cyber Red */
+  --glow-2: rgba(244, 63, 94, 0.18);  /* Deep Coral */
+  --bg-glass: rgba(26, 3, 7, 0.7);
+  --bg-header-glass: rgba(8, 1, 2, 0.75);
+  --border-glass: rgba(255, 255, 255, 0.05);
+  --border-glass-highlight: rgba(255, 255, 255, 0.12);
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --accent: #ef4444; /* Neon Flame */
+  --accent-rgb: 239, 68, 68;
+  --accent-secondary: #f43f5e;
+  --accent-hover: #f87171;
+  --accent-alpha-10: rgba(239, 68, 68, 0.1);
+  --accent-alpha-20: rgba(239, 68, 68, 0.2);
+  --accent-alpha-30: rgba(239, 68, 68, 0.3);
+  --bg-button-secondary: rgba(255, 255, 255, 0.04);
+  --bg-button-secondary-hover: rgba(255, 255, 255, 0.09);
+  --btn-primary-text: #ffffff;
+  --card-bg-active: rgba(239, 68, 68, 0.12);
+  --pulse-glow: rgba(239, 68, 68, 0.45);
+}
+
+/* 6. Sakura Dawn (Soft Glow light mode) */
+[data-theme="sakura-dawn"] {
+  --bg-app: #faf6f6;
+  --bg-gradient: linear-gradient(135deg, #faf6f6 0%, #f3ecec 100%);
+  --glow-1: rgba(244, 114, 182, 0.18);
+  --glow-2: rgba(192, 132, 252, 0.14);
+  --bg-glass: rgba(255, 255, 255, 0.75);
+  --bg-header-glass: rgba(250, 246, 246, 0.8);
+  --border-glass: rgba(0, 0, 0, 0.05);
+  --border-glass-highlight: rgba(255, 255, 255, 0.7);
+  --text-primary: #1e1b1b;
+  --text-secondary: #6e6565;
+  --accent: #ec4899;
+  --accent-rgb: 236, 72, 153;
+  --accent-secondary: #a855f7;
+  --accent-hover: #db2777;
+  --accent-alpha-10: rgba(236, 72, 153, 0.08);
+  --accent-alpha-20: rgba(236, 72, 153, 0.16);
+  --accent-alpha-30: rgba(236, 72, 153, 0.25);
+  --bg-button-secondary: rgba(0, 0, 0, 0.02);
+  --bg-button-secondary-hover: rgba(0, 0, 0, 0.06);
+  --btn-primary-text: #ffffff;
+  --card-bg-active: rgba(236, 72, 153, 0.08);
+  --pulse-glow: rgba(236, 72, 153, 0.25);
+}

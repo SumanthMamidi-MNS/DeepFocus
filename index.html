@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Deep Focus - The premium ambient focus application that learns how you work. Procedural sound studio, precision timing, equalizer, and cognitive tracking.">
+  <meta name="theme-color" content="#090a0f">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Deep Focus">
+  
+  <title>Deep Focus — Ambient Focus</title>
+  
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <link rel="apple-touch-icon" href="/icon.svg">
+
+  <!-- Core and Component Stylesheets -->
+  <link rel="stylesheet" href="/css/main.css?v=2.4">
+  <link rel="stylesheet" href="/css/themes.css?v=2.4">
+  <link rel="stylesheet" href="/css/components.css?v=2.4">
+
+  <!-- Application Entrypoint -->
+  <script type="module" src="/js/app.js" defer></script>
+</head>
+<body>
+
+  <!-- Animated Glowing Ambient Backdrop -->
+  <div class="ambient-glow" aria-hidden="true"></div>
+
+  <div class="app-container">
+    
+    <!-- Application Header -->
+    <header>
+      <div style="display: flex; flex-direction: column; justify-content: center; gap: 3px;">
+        <div class="logo">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 2v6c0 2.21 1.79 4 4 4c-2.21 0-4 1.79-4 4v6h12v-6c0-2.21-1.79-4-4-4c2.21 0 4-1.79 4-4V2H6zm10 14.5V20H8v-3.5c0-1.38 1.12-2.5 2.5-2.5h3c1.38 0 2.5 1.12 2.5 2.5zM13.5 10H10.5C9.12 10 8 8.88 8 7.5V4h8v3.5c0 1.38-1.12 2.5-2.5 2.5z"/>
+          </svg>
+          <span>Deep Focus</span>
+        </div>
+        <span style="font-size: 0.68rem; color: var(--text-secondary); opacity: 0.55; letter-spacing: 0.01em; padding-left: 32px; font-weight: 400; line-height: 1;">Adaptive ambient focus for meaningful work.</span>
+      </div>
+
+      <div class="header-controls">
+        <!-- Guest Mode Toggle -->
+        <button id="guest-mode-btn" class="btn-secondary" style="font-size: 0.75rem; padding: 6px 12px; height: 32px; gap: 6px; border: 1px solid var(--border-glass);" title="Toggle Guest Mode (Bypasses local save)">
+          <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #22c55e;" id="guest-indicator"></span>
+          <span id="guest-label">Guest Mode</span>
+        </button>
+
+        <!-- Reset Workspace Button -->
+        <button id="reset-workspace-btn" class="btn-icon" title="Reset Workspace (Wipe all data)" style="color: var(--accent);">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+          </svg>
+          <span class="sr-only">Reset Workspace</span>
+        </button>
+
+        <!-- Master Sound Stop/Play Toggle -->
+        <button id="master-sound-toggle-btn" class="btn-icon" title="Mute/Unmute Ambient Soundscape" style="color: var(--accent);">
+          <svg id="master-sound-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+          </svg>
+          <span class="sr-only">Toggle Ambient Soundscape</span>
+        </button>
+
+        <!-- Notification Toggle -->
+        <button id="toggle-notification-btn" class="btn-icon" title="Toggle Notifications">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/>
+          </svg>
+          <span class="sr-only">Toggle Notifications</span>
+        </button>
+
+        <!-- Workspace Guide & Help Button -->
+        <button id="open-shortcuts-btn" class="btn-icon" title="Workspace Guide & Help">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 16h-2v-2h2v2zm1.07-7.75l-.9.92C12.45 11.9 12 12.5 12 14h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.25z"/>
+          </svg>
+          <span class="sr-only">Workspace Guide</span>
+        </button>
+
+        <!-- Theme Creator Button -->
+        <button id="open-theme-creator-btn" class="btn-icon" title="Create Custom Theme">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.76-.39-1.05-.23-.29-.38-.66-.38-1.07 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+          </svg>
+          <span class="sr-only">Theme Creator</span>
+        </button>
+
+        <!-- Theme Engine Selector -->
+        <div style="position: relative;">
+          <select id="theme-select" class="btn-secondary" style="padding-right: 32px; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;12&quot; height=&quot;12&quot; fill=&quot;%239ca3af&quot; viewBox=&quot;0 0 24 24&quot;><path d=&quot;M7 10l5 5 5-5z&quot;/></svg>'); background-repeat: no-repeat; background-position: right 12px center;" aria-label="Select Theme">
+            <option value="zen-dark">Zen Dark</option>
+            <option value="nordic-frost">Nordic Frost</option>
+            <option value="forest-moss">Forest Moss</option>
+            <option value="solarized-amber">Solarized Amber</option>
+            <option value="sunset-ember">Sunset Ember</option>
+            <option value="sakura-dawn">Sakura Dawn</option>
+          </select>
+        </div>
+      </div>
+    </header>
+
+    <!-- Centered Zen Timer & Visualizer Top Section (G.O.A.T. Layout) -->
+    <div class="dashboard-top-section">
+      <!-- Left Column: Balanced empty spacer -->
+      <div class="top-spacer-left"></div>
+
+      <!-- Center Column: Zen Timer Widget -->
+      <div class="glass-panel timer-section" style="min-height: 380px; height: 100%;">
+        <!-- Pomo Cycle Dots -->
+        <div class="pomo-cycle-dots" style="display: flex; gap: 8px; justify-content: center; margin-bottom: 12px;" title="Completed Focus blocks in current set">
+          <span class="pomo-dot" data-dot="1"></span>
+          <span class="pomo-dot" data-dot="2"></span>
+          <span class="pomo-dot" data-dot="3"></span>
+          <span class="pomo-dot" data-dot="4"></span>
+        </div>
+
+        <div class="timer-circle-container">
+          <svg class="timer-svg" viewBox="0 0 280 280">
+            <circle class="timer-track" cx="140" cy="140" r="120" />
+            <circle id="timer-progress-ring" class="timer-progress" cx="140" cy="140" r="120" />
+          </svg>
+          <div class="timer-content">
+            <span id="timer-label" class="timer-label">Focus Block</span>
+            <span id="timer-digits" class="timer-digits">25:00</span>
+            
+            <!-- Active Selected Task Header -->
+            <div id="active-task-name" style="display: none; font-size: 0.8rem; margin-top: 4px; color: var(--accent); background: var(--accent-alpha-10); padding: 2px 8px; border-radius: 12px; font-weight: 500;"></div>
+            
+            <span id="timer-status" class="timer-status">Ready</span>
+          </div>
+        </div>
+
+        <div class="timer-controls">
+          <!-- Reset Button -->
+          <button id="timer-reset-btn" class="btn-secondary" style="padding: 12px;" title="Reset Timer">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+              <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
+            </svg>
+            <span class="sr-only">Reset</span>
+          </button>
+
+          <!-- Play/Pause Button -->
+          <button id="timer-play-pause-btn" class="btn-primary" style="padding: 16px 32px; border-radius: 50px;" title="Start/Pause Session">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+            <span class="sr-only">Start</span>
+          </button>
+
+          <!-- Skip / Done Early Button -->
+          <button id="timer-skip-btn" class="btn-secondary" style="padding: 12px;" title="Skip/Done Early">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+              <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+            </svg>
+            <span class="sr-only">Skip</span>
+          </button>
+        </div>
+
+        <div class="timer-adjusters">
+          <button id="timer-adjust-minus" class="timer-adjust-btn">-1 Min</button>
+          <button id="timer-fit-hour-btn" class="timer-adjust-btn" title="Set Session to 60 Minutes">60 Min</button>
+          <button id="enter-zen-mode-btn" class="timer-adjust-btn" style="background: var(--accent-alpha-10); color: var(--accent); border-color: var(--accent-alpha-30);" title="Enter Fullscreen Zen Mode">Zen Mode</button>
+          <button id="timer-adjust-plus" class="timer-adjust-btn">+1 Min</button>
+        </div>
+
+        <!-- Distraction & Chime Controls Row -->
+        <div class="timer-meta-controls" style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border-glass); flex-shrink: 0;">
+          <!-- Distraction Logger Button -->
+          <button id="log-distraction-btn" class="btn-secondary" style="font-size: 0.75rem; padding: 4px 10px; display: flex; align-items: center; gap: 4px;" title="Log a moment of distraction">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+            </svg>
+            <span>Log Distraction</span>
+            <span id="distraction-count-badge" style="background: var(--accent); color: #fff; padding: 1px 6px; border-radius: 10px; font-size: 0.65rem; margin-left: 2px; display: none;">0</span>
+          </button>
+          
+          <!-- Chime sound selector -->
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span class="text-muted" style="font-size: 0.7rem; text-transform: uppercase; font-weight: 700;">Chime:</span>
+            <div style="position: relative;">
+              <select id="chime-select" class="btn-secondary" style="font-size: 0.75rem; padding: 2px 20px 2px 8px; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;12&quot; height=&quot;12&quot; fill=&quot;%239ca3af&quot; viewBox=&quot;0 0 24 24&quot;><path d=&quot;M7 10l5 5 5-5z&quot;/></svg>'); background-repeat: no-repeat; background-position: right 6px center;" aria-label="End Session Chime">
+                <option value="tibetan-bowl">Tibetan Bowl</option>
+                <option value="soft-bell">Soft Bell</option>
+                <option value="digital-chime">Digital Chime</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Live Audio Visualizer Card -->
+      <div class="glass-panel visualizer-card" style="padding: 20px; display: flex; flex-direction: column; min-height: 380px; height: 100%;">
+        <div class="flex-between" style="margin-bottom: 12px; flex-shrink: 0;">
+          <h2 class="heading-md" style="font-size: 1.1rem; margin: 0;">Acoustic Visualizer</h2>
+          <select id="visualizer-mode-select" class="btn-secondary" style="font-size: 0.75rem; padding: 2px 24px 2px 8px; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;12&quot; height=&quot;12&quot; fill=&quot;%239ca3af&quot; viewBox=&quot;0 0 24 24&quot;><path d=&quot;M7 10l5 5 5-5z&quot;/></svg>'); background-repeat: no-repeat; background-position: right 8px center; border-radius: 4px; height: 24px; border: 1px solid var(--border-glass);">
+            <option value="aurora">Aurora Wave</option>
+            <option value="spectrum">Spectrum Bars</option>
+            <option value="particles">Cosmic Dust</option>
+          </select>
+        </div>
+        <div class="visualizer-container" style="flex-grow: 1;">
+          <canvas id="visualizer-canvas" class="visualizer-canvas"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Dashboard Grid -->
+    <main class="dashboard-grid">
+      
+      <!-- Left Area: Ambient Studio, Mixer & Equalizer -->
+      <section style="display: flex; flex-direction: column; gap: 24px;">
+        
+        <!-- Tabbed Audio Studio & Mixer -->
+        <div class="glass-panel" style="padding: 20px;">
+          <div class="panel-tabs">
+            <button class="panel-tab-btn active" data-tab="tab-sounds">Ambient Studio</button>
+            <button class="panel-tab-btn" data-tab="tab-waves">Frequency Waves</button>
+            <button class="panel-tab-btn" data-tab="tab-eq">Acoustic EQ</button>
+          </div>
+
+          <!-- Tab 1: Ambient Studio -->
+          <div class="panel-tab-content active" id="tab-sounds">
+            <div class="flex-between">
+              <h2 class="heading-md" style="font-size: 1.05rem;">Ambient Mixes</h2>
+              <div class="flex-row">
+                <button id="open-preset-save-modal-btn" class="btn-secondary" style="padding: 4px 10px; font-size: 0.75rem;">Save Mix</button>
+                <button id="preset-export-btn" class="btn-secondary" style="padding: 4px 10px; font-size: 0.75rem;" title="Export Active Preset">Export</button>
+                <label for="preset-import-file" class="btn-secondary" style="padding: 4px 10px; font-size: 0.75rem; cursor: pointer;">
+                  Import
+                  <input type="file" id="preset-import-file" accept=".json" style="display: none;">
+                </label>
+              </div>
+            </div>
+
+            <!-- Presets manager row -->
+            <div class="presets-section" style="margin-top: 12px; padding-top: 10px;">
+              <span class="text-muted font-medium" style="font-size: 0.8rem;">Presets</span>
+              <div id="preset-pills" class="preset-pills" style="margin-top: 8px;">
+                <!-- Preset pills rendered here -->
+              </div>
+            </div>
+
+            <!-- Master Volume -->
+            <div style="margin-top: 16px; display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.01); padding: 8px 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-glass);">
+              <span class="text-muted" style="min-width: 80px; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">Master Vol</span>
+              <input type="range" id="master-volume-slider" min="0" max="1" step="0.05" value="0.7" class="slider-input">
+            </div>
+
+            <!-- Dynamically generated sound layers grid -->
+            <div id="studio-sound-grid" class="studio-grid" style="margin-top: 16px;">
+              <!-- Sound cards generated here -->
+            </div>
+          </div>
+
+          <!-- Tab 2: Wave Frequency Tuner -->
+          <div class="panel-tab-content" id="tab-waves">
+            <h2 class="heading-md" style="font-size: 1.05rem; margin-bottom: 12px;">Entrainment Frequency Generators</h2>
+            <div class="studio-grid" style="grid-template-columns: 1fr; gap: 16px;">
+              
+              <!-- Binaural Beats Card -->
+              <div class="sound-card" id="card-binaural" style="padding: 16px;">
+                <div class="sound-header">
+                  <div class="sound-title-wrapper">
+                    <svg viewBox="0 0 24 24" class="sound-icon" style="width: 20px; height: 20px;"><path d="M12 2c-4.97 0-9 4.03-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7c0-4.97-4.03-9-9-9z"/></svg>
+                    <span class="sound-title">Binaural Beats (Left / Right Separation)</span>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="switch-binaural">
+                    <span class="slider-toggle"></span>
+                  </label>
+                </div>
+                <div class="sound-controls">
+                  <div class="control-row">
+                    <span class="control-label" style="min-width: 80px;">Beat Freq</span>
+                    <input type="range" class="slider-input" id="freq-binaural" min="1" max="30" step="0.5" value="10">
+                    <span id="freq-val-binaural" class="text-muted" style="min-width: 38px; font-size: 0.75rem; text-align: right; font-family: monospace;">10Hz</span>
+                  </div>
+                  <div class="control-row">
+                    <span class="control-label" style="min-width: 80px;">Carrier</span>
+                    <input type="range" class="slider-input" id="carrier-binaural" min="100" max="300" step="5" value="140">
+                    <span id="carrier-val-binaural" class="text-muted" style="min-width: 38px; font-size: 0.75rem; text-align: right; font-family: monospace;">140Hz</span>
+                  </div>
+                  <div class="control-row">
+                    <span class="control-label" style="min-width: 80px;">Volume</span>
+                    <input type="range" class="slider-input" id="vol-binaural" min="0" max="0.5" step="0.02" value="0.15">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Solfeggio Tones Card -->
+              <div class="sound-card" id="card-solfeggio" style="padding: 16px;">
+                <div class="sound-header">
+                  <div class="sound-title-wrapper">
+                    <svg viewBox="0 0 24 24" class="sound-icon" style="width: 20px; height: 20px;"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                    <span class="sound-title">Solfeggio Resonance Tones</span>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="switch-solfeggio">
+                    <span class="slider-toggle"></span>
+                  </label>
+                </div>
+                <div class="sound-controls">
+                  <div class="control-row">
+                    <span class="control-label" style="min-width: 80px;">Frequency</span>
+                    <select id="freq-solfeggio" class="btn-secondary" style="font-size: 0.75rem; padding: 2px 6px; flex-grow: 1; border-radius: 4px; height: 24px; border: 1px solid var(--border-glass); background: var(--bg-app);">
+                      <option value="432">432 Hz (Natural Harmony)</option>
+                      <option value="528" selected>528 Hz (Transformation / Miracles)</option>
+                      <option value="396">396 Hz (Liberate Fear / Guilt)</option>
+                      <option value="639">639 Hz (Harmonize Relationships)</option>
+                      <option value="741">741 Hz (Cleanse / Solve Problems)</option>
+                      <option value="852">852 Hz (Awaken Intuition)</option>
+                    </select>
+                  </div>
+                  <div class="control-row" style="margin-top: 6px;">
+                    <span class="control-label" style="min-width: 80px;">Volume</span>
+                    <input type="range" class="slider-input" id="vol-solfeggio" min="0" max="0.3" step="0.01" value="0.10">
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Tab 3: Equalizer -->
+          <div class="panel-tab-content" id="tab-eq">
+            <div class="flex-between" style="margin-bottom: 12px;">
+              <h2 class="heading-md" style="font-size: 1.05rem;">Acoustic Equalizer</h2>
+              <div class="flex-row" style="gap: 6px;">
+                <button class="eq-preset-btn btn-secondary" style="padding: 4px 8px; font-size: 0.7rem;" data-preset="flat">Flat</button>
+                <button class="eq-preset-btn btn-secondary" style="padding: 4px 8px; font-size: 0.7rem;" data-preset="deepFocus">Focus</button>
+                <button class="eq-preset-btn btn-secondary" style="padding: 4px 8px; font-size: 0.7rem;" data-preset="vocalBoost">Vocal</button>
+                <button class="eq-preset-btn btn-secondary" style="padding: 4px 8px; font-size: 0.7rem;" data-preset="tinnitusRelief">Tinnitus</button>
+                <button class="eq-preset-btn btn-secondary" style="padding: 4px 8px; font-size: 0.7rem;" data-preset="electronic">Electro</button>
+              </div>
+            </div>
+            <div id="eq-band-sliders" class="equalizer-container">
+              <!-- Sliders generated here -->
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- Right Area: Visualizer, Cognitive Journals, Smart Recommendations, and Statistics -->
+      <section style="display: flex; flex-direction: column; gap: 24px;">
+        
+
+
+        <!-- Tabbed Workspace panel -->
+        <div class="glass-panel" style="padding: 20px;">
+          <div class="panel-tabs">
+            <button class="panel-tab-btn active" data-tab="tab-tasks">Focus Tasks</button>
+            <button class="panel-tab-btn" data-tab="tab-journal">Reflection Journal</button>
+            <button class="panel-tab-btn" data-tab="tab-stats">Performance Stats</button>
+            <button class="panel-tab-btn" data-tab="tab-ai-companion">AI Companion</button>
+          </div>
+
+          <!-- Tab 1: Focus Tasks -->
+          <div class="panel-tab-content active" id="tab-tasks">
+            <div class="flex-row" style="margin-bottom: 12px; gap: 6px;">
+              <input type="text" id="new-task-title" class="journal-textarea" style="min-height: 38px; height: 38px; flex-grow: 1; padding: 8px 12px;" placeholder="What are you working on?">
+              <select id="new-task-pomos" class="btn-secondary" style="height: 38px; padding: 0 24px 0 8px; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;12&quot; height=&quot;12&quot; fill=&quot;%239ca3af&quot; viewBox=&quot;0 0 24 24&quot;><path d=&quot;M7 10l5 5 5-5z&quot;/></svg>'); background-repeat: no-repeat; background-position: right 8px center; font-size: 0.8rem; background: var(--bg-app);" title="Estimated Focus Blocks">
+                <option value="1">1 pomo</option>
+                <option value="2">2 pomos</option>
+                <option value="3">3 pomos</option>
+                <option value="4">4 pomos</option>
+                <option value="5">5 pomos</option>
+              </select>
+              <button id="add-task-btn" class="btn-primary" style="height: 38px; padding: 0 16px; font-size: 0.85rem;">Add</button>
+            </div>
+
+            <div id="todo-list" style="max-height: 250px; overflow-y: auto; display: flex; flex-direction: column;">
+              <!-- Tasks populated here -->
+            </div>
+          </div>
+
+          <!-- Tab 2: Reflection Journal -->
+          <div class="panel-tab-content" id="tab-journal">
+            <div class="mood-picker" style="margin-bottom: 12px;">
+              <button class="mood-btn" data-mood="energized" title="Energized">🤩</button>
+              <button class="mood-btn" data-mood="focused" title="Focused">🧠</button>
+              <button class="mood-btn" data-mood="calm" title="Calm">😌</button>
+              <button class="mood-btn" data-mood="distracted" title="Distracted">🥱</button>
+              <button class="mood-btn" data-mood="tired" title="Tired">😵</button>
+            </div>
+
+            <textarea id="journal-note" class="journal-textarea" placeholder="How is your focus? Add a reflection note to log with your mood..."></textarea>
+            
+            <button id="save-journal-btn" class="btn-primary" style="width: 100%; margin-top: 12px;">Save Reflection Log</button>
+
+            <!-- History journal list -->
+            <div id="journal-history-list" class="journal-history-list" style="margin-top: 16px; max-height: 220px; overflow-y: auto;">
+              <!-- Journal items loaded here -->
+            </div>
+          </div>
+
+          <!-- Tab 3: Performance Stats -->
+          <div class="panel-tab-content" id="tab-stats">
+            <!-- Productivity Pulse meter -->
+            <div class="pulse-container" style="margin-bottom: 16px;">
+              <div class="pulse-indicator">
+                <div class="pulse-circle"></div>
+                <div class="pulse-core"></div>
+              </div>
+              <div>
+                <span class="text-muted" style="font-size: 0.7rem; text-transform: uppercase; font-weight: 700; display: block; color: var(--accent);">Productivity Pulse</span>
+                <span id="pulse-score" style="font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; color: var(--text-primary);">0%</span>
+                <p id="pulse-text" style="font-size: 0.8rem; margin-top: 2px;">Zen state waiting. Complete a session to begin.</p>
+              </div>
+            </div>
+
+            <div class="analytics-summary">
+              <div class="stat-card" style="padding: 10px;">
+                <div id="stat-total-minutes" class="stat-value" style="font-size: 1.15rem;">0m</div>
+                <div class="stat-label" style="font-size: 0.65rem;">Focused Today</div>
+              </div>
+              <div class="stat-card" style="padding: 10px;">
+                <div id="stat-success-rate" class="stat-value" style="font-size: 1.15rem;">100%</div>
+                <div class="stat-label" style="font-size: 0.65rem;">Success Rate</div>
+              </div>
+              <div class="stat-card" style="padding: 10px;">
+                <div id="stat-streak" class="stat-value" style="font-size: 1.15rem;">0 Days</div>
+                <div class="stat-label" style="font-size: 0.65rem;">Focus Streak</div>
+              </div>
+            </div>
+
+            <h3 class="heading-md" style="font-size: 0.85rem; margin-top: 18px; border-bottom: 1px solid var(--border-glass); padding-bottom: 6px;">Weekly Distribution</h3>
+            <div id="analytics-chart" class="chart-container" style="height: 120px; margin-top: 8px;">
+              <!-- SVG Weekly Chart rendered here -->
+            </div>
+          </div>
+
+          <!-- Tab 4: AI Companion (G.O.A.T. addition) -->
+          <div class="panel-tab-content" id="tab-ai-companion">
+            <div style="display: flex; flex-direction: column; height: 320px; gap: 8px;">
+              <!-- Message Area -->
+              <div id="chat-messages" style="flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding: 10px; max-height: 220px; border: 1px solid var(--border-glass); border-radius: var(--radius-sm); background: rgba(0,0,0,0.15);">
+                <!-- Messages populated via JS -->
+              </div>
+              
+              <!-- Suggestions pills row -->
+              <div id="chat-suggestions" style="display: flex; gap: 6px; overflow-x: auto; padding: 2px 0; scrollbar-width: none;">
+                <!-- Populated via JS -->
+              </div>
+              
+              <!-- Input Row -->
+              <div style="display: flex; gap: 6px; align-items: center; border-top: 1px solid var(--border-glass); padding-top: 6px;">
+                <input type="text" id="chat-input" class="journal-textarea" style="min-height: 38px; height: 38px; flex-grow: 1; padding: 8px 12px; margin: 0;" placeholder="Ask Zenith AI for focus coaching...">
+                <button id="chat-send-btn" class="btn-primary" style="height: 38px; padding: 0 16px; font-size: 0.85rem; flex-shrink: 0;">Send</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Integrated Smart Recommendation Footer (Visible across all tabs) -->
+          <div class="recommendation-footer" style="margin-top: 18px; padding-top: 12px; border-top: 1px dashed var(--border-glass-highlight);">
+            <h3 style="font-size: 0.75rem; text-transform: uppercase; color: var(--accent); letter-spacing: 0.05em; font-weight: 700; display: flex; align-items: center; gap: 6px; margin: 0;">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="color: var(--accent);"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C8.8 12.2 8 10.69 8 9c0-2.21 1.79-4 4-4s4 1.79 4 4c0 1.69-.8 3.2-2.15 4.1z"/></svg>
+              Smart Recommendation
+            </h3>
+            <p id="recommendation-text" style="font-size: 0.85rem; margin-top: 4px; line-height: 1.4; color: var(--text-primary);">Analyzing session patterns... Complete a focus session to generate recommendations.</p>
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Modal overlay: User Guide & Keyboard Shortcuts -->
+  <div id="modal-shortcuts" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="shortcuts-title">
+    <div class="modal-content" style="max-width: 500px; max-height: 85vh; display: flex; flex-direction: column;">
+      <div class="modal-header" style="flex-shrink: 0;">
+        <h2 id="shortcuts-title" class="heading-md">Workspace Guide & Shortcuts</h2>
+        <button id="close-shortcuts-btn" class="btn-icon" style="width: 32px; height: 32px;">&times;</button>
+      </div>
+      
+      <!-- Help Modal Tabs -->
+      <div style="display: flex; gap: 8px; margin-bottom: 16px; border-bottom: 1px solid var(--border-glass); padding-bottom: 8px; flex-shrink: 0;">
+        <button id="help-tab-btn-guide" class="btn-primary help-tab-btn" style="font-size: 0.8rem; padding: 4px 12px; border-radius: 4px; cursor: pointer;">User Guide</button>
+        <button id="help-tab-btn-keys" class="btn-secondary help-tab-btn" style="font-size: 0.8rem; padding: 4px 12px; border-radius: 4px; cursor: pointer;">Shortcuts</button>
+      </div>
+
+      <div class="modal-body" style="flex-grow: 1; overflow-y: auto; padding-right: 4px;">
+        <!-- Tab 1: User Guide -->
+        <div id="help-tab-content-guide" class="help-tab-pane" style="display: flex; flex-direction: column; gap: 12px;">
+          <div>
+            <h3 style="font-size: 0.9rem; color: var(--accent); margin-bottom: 2px; font-weight: 600;">🎵 Ambient Auditory Studio</h3>
+            <p class="text-muted" style="font-size: 0.8rem; line-height: 1.4;">Choose a preset ambient sound or adjust multiple audio sliders to create a custom mixed soundscape that masks distracting room noise.</p>
+          </div>
+          <div>
+            <h3 style="font-size: 0.9rem; color: var(--accent); margin-bottom: 2px; font-weight: 600;">⏱️ Set Focus Duration</h3>
+            <p class="text-muted" style="font-size: 0.8rem; line-height: 1.4;">Use the adjustments below the timer (`-1 Min`, `+1 Min`, `60 Min`) to set your target focus duration before launching a session.</p>
+          </div>
+          <div>
+            <h3 style="font-size: 0.9rem; color: var(--accent); margin-bottom: 2px; font-weight: 600;">▶️ Press Play to Begin</h3>
+            <p class="text-muted" style="font-size: 0.8rem; line-height: 1.4;">Click the central **Play** button (or tap spacebar) to start the timer countdown. The tab title in your browser will display remaining time.</p>
+          </div>
+          <div>
+            <h3 style="font-size: 0.9rem; color: var(--accent); margin-bottom: 2px; font-weight: 600;">🔒 Deep Work Lock</h3>
+            <p class="text-muted" style="font-size: 0.8rem; line-height: 1.4;">Press the **Zen Mode** button (or `KeyZ`) to enter a fullscreen minimal interface. It locks out visual distractions and displays a breathing pacing ring.</p>
+          </div>
+          <div>
+            <h3 style="font-size: 0.9rem; color: var(--accent); margin-bottom: 2px; font-weight: 600;">🧠 Log Distractions</h3>
+            <p class="text-muted" style="font-size: 0.8rem; line-height: 1.4;">If you catch your mind drifting, click the **Log Distraction** button. Grounding your drift manually helps you refocus and alerts Zenith to track patterns.</p>
+          </div>
+          <div>
+            <h3 style="font-size: 0.9rem; color: var(--accent); margin-bottom: 2px; font-weight: 600;">📝 Reflect & Track Analytics</h3>
+            <p class="text-muted" style="font-size: 0.8rem; line-height: 1.4;">At session end, use the **Reflection Journal** to note down feelings and check the **Performance Stats** tab for cycle statistics.</p>
+          </div>
+          <div>
+            <h3 style="font-size: 0.9rem; color: var(--accent); margin-bottom: 2px; font-weight: 600;">🎨 Styling & Equalizer</h3>
+            <p class="text-muted" style="font-size: 0.8rem; line-height: 1.4;">Customize your interface anytime using preset themes, the color palette editor, or configure frequency gains using the 5-band EQ sliders.</p>
+          </div>
+          <div style="margin-top: 4px; padding: 8px 12px; background: var(--accent-alpha-10); border: 1px solid var(--accent-alpha-30); border-radius: 4px; text-align: center;">
+            <p style="font-size: 0.8rem; color: var(--accent); margin: 0; font-weight: 500;">💡 Press the <kbd style="background: rgba(0,0,0,0.3); padding: 1px 5px; border-radius: 3px; font-size: 0.75rem;">?</kbd> key anytime to reopen this guide.</p>
+          </div>
+        </div>
+
+        <!-- Tab 2: Keyboard Shortcuts -->
+        <div id="help-tab-content-keys" class="help-tab-pane" style="display: none; flex-direction: column; gap: 8px;">
+          <div class="shortcut-row">
+            <span>Start / Pause Session</span>
+            <kbd class="key-badge">Spacebar</kbd>
+          </div>
+          <div class="shortcut-row">
+            <span>Reset Timer</span>
+            <kbd class="key-badge">R</kbd>
+          </div>
+          <div class="shortcut-row">
+            <span>Skip / Done Early</span>
+            <kbd class="key-badge">S</kbd>
+          </div>
+          <div class="shortcut-row">
+            <span>Fit Timer To Hour</span>
+            <kbd class="key-badge">F</kbd>
+          </div>
+          <div class="shortcut-row">
+            <span>Toggle Zen Mode Overlay</span>
+            <kbd class="key-badge">Z</kbd>
+          </div>
+          <div class="shortcut-row">
+            <span>Toggle Help Screen</span>
+            <kbd class="key-badge">?</kbd>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal overlay: Save Custom Preset -->
+  <div id="modal-preset-save" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="preset-save-title">
+    <div class="modal-content" style="max-width: 400px;">
+      <div class="modal-header">
+        <h2 id="preset-save-title" class="heading-md">Save Sound Mix</h2>
+        <button id="close-preset-save-btn" class="btn-icon" style="width: 32px; height: 32px;">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="text-muted">Save your current layer volumes, pans, pitches, and equalizer curves under a custom preset name.</p>
+        <input type="text" id="new-preset-name" class="journal-textarea" style="min-height: 42px;" placeholder="e.g. Rainy Study Night" maxlength="32">
+        <button id="save-preset-confirm" class="btn-primary" style="width: 100%; margin-top: 8px;">Save Preset</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- G.O.A.T. Modal overlay: Theme Creator -->
+  <div id="modal-theme-creator" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="theme-creator-title">
+    <div class="modal-content" style="max-width: 440px;">
+      <div class="modal-header">
+        <h2 id="theme-creator-title" class="heading-md">Custom Theme Creator</h2>
+        <button id="close-theme-creator-btn" class="btn-icon" style="width: 32px; height: 32px;">&times;</button>
+      </div>
+      <div class="modal-body" style="gap: 12px; max-height: 420px; overflow-y: auto; padding-right: 4px;">
+        <p class="text-muted" style="margin-bottom: 4px;">Design your own color scheme. Custom themes will persist in your workspace.</p>
+        
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <span class="text-muted" style="font-size: 0.75rem; text-transform: uppercase; font-weight: 600;">Theme Name</span>
+          <input type="text" id="new-theme-name" class="journal-textarea" style="min-height: 38px; height: 38px; padding: 8px 12px;" placeholder="e.g. Lavender Dream" maxlength="20">
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 4px;">
+          <div style="display: flex; align-items: center; gap: 8px; justify-content: space-between;">
+            <span class="text-muted" style="font-size: 0.75rem; font-weight: 500;">Background</span>
+            <input type="color" id="color-bg" value="#0a0512" style="border: none; background: none; width: 32px; height: 32px; cursor: pointer;">
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px; justify-content: space-between;">
+            <span class="text-muted" style="font-size: 0.75rem; font-weight: 500;">Gradient End</span>
+            <input type="color" id="color-grad-end" value="#120924" style="border: none; background: none; width: 32px; height: 32px; cursor: pointer;">
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px; justify-content: space-between;">
+            <span class="text-muted" style="font-size: 0.75rem; font-weight: 500;">Neon Glow 1</span>
+            <input type="color" id="color-glow-1" value="#a78bfa" style="border: none; background: none; width: 32px; height: 32px; cursor: pointer;">
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px; justify-content: space-between;">
+            <span class="text-muted" style="font-size: 0.75rem; font-weight: 500;">Neon Glow 2</span>
+            <input type="color" id="color-glow-2" value="#ec4899" style="border: none; background: none; width: 32px; height: 32px; cursor: pointer;">
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px; justify-content: space-between;">
+            <span class="text-muted" style="font-size: 0.75rem; font-weight: 500;">Accent</span>
+            <input type="color" id="color-accent" value="#d946ef" style="border: none; background: none; width: 32px; height: 32px; cursor: pointer;">
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px; justify-content: space-between;">
+            <span class="text-muted" style="font-size: 0.75rem; font-weight: 500;">Accent Sec</span>
+            <input type="color" id="color-accent-sec" value="#a855f7" style="border: none; background: none; width: 32px; height: 32px; cursor: pointer;">
+          </div>
+        </div>
+
+        <input type="hidden" id="color-grad-start" value="#0a0512">
+
+        <button id="save-theme-confirm" class="btn-primary" style="width: 100%; margin-top: 8px;">Save Custom Theme</button>
+
+        <h3 class="heading-md" style="font-size: 0.9rem; margin-top: 12px; border-top: 1px solid var(--border-glass); padding-top: 12px;">Manage Custom Themes</h3>
+        <div id="custom-themes-list" style="display: flex; flex-direction: column; gap: 6px; margin-top: 8px;">
+          <!-- Custom themes lists loaded here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- G.O.A.T. Full-Screen Zen Overlay -->
+  <div id="zen-overlay" class="modal-overlay" style="background: rgba(4, 2, 10, 0.96); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);">
+    
+    <!-- Floating stars backdrop -->
+    <div style="position: absolute; width: 100%; height: 100%; pointer-events: none; z-index: -1; overflow: hidden; opacity: 0.35;">
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="10%" cy="15%" r="1" fill="#fff" />
+        <circle cx="30%" cy="45%" r="1.5" fill="#fff" />
+        <circle cx="50%" cy="20%" r="1" fill="#fff" />
+        <circle cx="75%" cy="60%" r="2" fill="#fff" />
+        <circle cx="90%" cy="30%" r="1.5" fill="#fff" />
+        <circle cx="20%" cy="75%" r="1" fill="#fff" />
+        <circle cx="65%" cy="85%" r="1.5" fill="#fff" />
+        <circle cx="80%" cy="15%" r="1" fill="#fff" />
+      </svg>
+    </div>
+
+    <!-- Zen content -->
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 32px; text-align: center; width: 90%; max-width: 600px;">
+      
+      <!-- Close Button -->
+      <button id="zen-close-btn" class="btn-icon" style="position: fixed; top: 24px; right: 24px; width: 44px; height: 44px;" title="Exit Zen Mode">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+        </svg>
+      </button>
+
+      <!-- Active Task Label -->
+      <div id="zen-active-task-label" style="font-size: 1rem; color: var(--accent); font-weight: 500; display: none;"></div>
+
+      <!-- Large Clock display -->
+      <div id="zen-digits" style="font-family: var(--font-display); font-size: 8rem; font-weight: 200; letter-spacing: -0.05em; color: var(--text-primary); text-shadow: 0 0 40px var(--pulse-glow);">
+        25:00
+      </div>
+
+      <!-- Box Breathing guide -->
+      <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 160px; position: relative;">
+        <!-- Breathing ring -->
+        <div id="zen-breathing-circle" class="zen-breathing-circle"></div>
+        <!-- Pacing text -->
+        <div id="zen-breathing-text" style="position: absolute; font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 0.05em; color: var(--text-primary); font-weight: 500; transition: all 0.5s ease;">
+          Inhale...
+        </div>
+      </div>
+
+      <!-- Quick Play/Pause inside Zen Mode -->
+      <button id="zen-play-pause-btn" class="btn-primary" style="padding: 18px; border-radius: 50%; box-shadow: 0 0 24px var(--pulse-glow); width: 64px; height: 64px;" title="Play/Pause">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </button>
+      
+    </div>
+  </div>
+
+  <!-- Session Completion Modal -->
+  <div id="modal-completion" class="modal-overlay">
+    <div class="glass-panel modal-content" style="max-width: 440px; padding: 28px; text-align: center; border: 1px solid var(--accent-alpha-30); box-shadow: 0 0 30px var(--accent-alpha-20);">
+      <div style="font-size: 3rem; margin-bottom: 12px; filter: drop-shadow(0 0 10px var(--accent));">🏆</div>
+      <h2 class="heading-lg" style="margin-bottom: 8px; color: var(--accent);">Focus Session Complete!</h2>
+      <p class="text-muted" style="font-size: 0.9rem; margin-bottom: 20px;" id="completion-modal-stats">You focused for 25 minutes.</p>
+      
+      <!-- Mindfulness Quote -->
+      <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 16px; margin-bottom: 24px;">
+        <p id="completion-quote" style="font-style: italic; font-size: 0.85rem; line-height: 1.4; color: var(--text-primary);">"Focus is a muscle, and you just completed a heavy lift."</p>
+        <span id="completion-quote-author" style="display: block; font-size: 0.75rem; color: var(--text-secondary); margin-top: 6px; font-weight: 500;">— Zenith Guide</span>
+      </div>
+
+      <!-- Action buttons -->
+      <div style="display: flex; gap: 12px; justify-content: center;">
+        <button id="completion-close-btn" class="btn-primary" style="padding: 10px 24px; font-size: 0.85rem;">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Subtle self branding credit -->
+  <footer class="app-footer" style="text-align: center; padding: 32px 0 16px 0; color: var(--text-secondary); opacity: 0.45; font-family: inherit; pointer-events: none; width: 100%;">
+    Designed & Engineered by Sumanth Mamidi
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,949 @@
+/* --- Component Styles for Deep Focus --- */
+
+/* ==========================================================================
+   Timer Component
+   ========================================================================== */
+.timer-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+  min-height: 380px;
+}
+
+.timer-circle-container {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  margin-bottom: 24px;
+}
+
+.timer-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.timer-track {
+  fill: none;
+  stroke: var(--bg-button-secondary-hover);
+  stroke-width: 8px;
+}
+
+.timer-progress {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 8px;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.1s linear, stroke var(--transition-normal);
+}
+
+.timer-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.timer-digits {
+  font-family: var(--font-display);
+  font-size: 4.5rem;
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  color: var(--text-primary);
+  margin-top: 8px;
+}
+
+.timer-label {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-secondary);
+}
+
+.timer-status {
+  font-size: 0.8rem;
+  color: var(--accent);
+  margin-top: 4px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+.timer-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.timer-adjusters {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.timer-adjust-btn {
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-button-secondary);
+  border: 1px solid var(--border-glass);
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.timer-adjust-btn:hover {
+  background: var(--bg-button-secondary-hover);
+  color: var(--accent);
+}
+
+/* ==========================================================================
+   Sound Studio Component
+   ========================================================================== */
+.studio-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+@media (min-width: 576px) {
+  .studio-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.sound-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  transition: all var(--transition-normal);
+}
+
+.sound-card.active {
+  background: var(--card-bg-active);
+  border-color: var(--accent-alpha-30);
+}
+
+.sound-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.sound-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sound-icon {
+  width: 20px;
+  height: 20px;
+  fill: var(--text-secondary);
+}
+
+.sound-card.active .sound-icon {
+  fill: var(--accent);
+}
+
+.sound-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* Custom switch toggle */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 22px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider-toggle {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--bg-button-secondary-hover);
+  transition: .4s;
+  border-radius: 34px;
+  border: 1px solid var(--border-glass);
+}
+
+.slider-toggle:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
+  background-color: var(--text-secondary);
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider-toggle {
+  background-color: var(--accent-alpha-30);
+  border-color: var(--accent);
+}
+
+input:checked + .slider-toggle:before {
+  transform: translateX(22px);
+  background-color: var(--accent);
+}
+
+/* Slider controls */
+.sound-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  opacity: 0.5;
+  pointer-events: none;
+  transition: opacity var(--transition-normal);
+}
+
+.sound-card.active .sound-controls {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.control-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.control-label {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  min-width: 32px;
+  text-transform: uppercase;
+}
+
+.slider-input {
+  flex-grow: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--bg-button-secondary-hover);
+  outline: none;
+}
+
+.slider-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--text-secondary);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.sound-card.active .slider-input::-webkit-slider-thumb {
+  background: var(--accent);
+}
+
+.sound-card.active .slider-input::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* Presets Manager */
+.presets-section {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-glass);
+}
+
+.preset-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.preset-pill {
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-button-secondary);
+  border: 1px solid var(--border-glass);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.preset-pill.active {
+  background: var(--accent-alpha-10);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.preset-pill:hover {
+  background: var(--bg-button-secondary-hover);
+}
+
+.preset-delete-btn {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-left: 4px;
+}
+
+.preset-delete-btn:hover {
+  color: var(--accent-hover);
+}
+
+/* ==========================================================================
+   Equalizer Component
+   ========================================================================== */
+.equalizer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+  height: 150px;
+  padding: 8px 0;
+}
+
+.eq-band {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+  height: 100%;
+}
+
+.eq-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 4px;
+  height: 100px;
+  border-radius: 2px;
+  background: var(--bg-button-secondary-hover);
+  outline: none;
+  writing-mode: vertical-lr; /* For some browsers */
+  direction: rtl;            /* Make it vertical */
+}
+
+/* Fallback for Webkit vertical inputs */
+.eq-slider-container {
+  height: 100px;
+  width: 12px;
+  display: flex;
+  justify-content: center;
+}
+
+.eq-slider {
+  writing-mode: vertical-lr;
+  direction: rtl;
+  width: 8px;
+  height: 100px;
+  background: transparent;
+}
+
+.eq-value {
+  font-size: 0.7rem;
+  color: var(--accent);
+  margin-top: 4px;
+  font-family: monospace;
+}
+
+.eq-label {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   Audio Visualizer Component
+   ========================================================================== */
+.visualizer-container {
+  width: 100%;
+  height: 130px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-glass);
+  margin-top: 12px;
+  position: relative;
+}
+
+.visualizer-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ==========================================================================
+   Analytics Component
+   ========================================================================== */
+.analytics-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  text-align: center;
+}
+
+.stat-value {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+/* SVG Chart */
+.chart-container {
+  width: 100%;
+  height: 160px;
+  margin-top: 16px;
+}
+
+.chart-bar {
+  fill: var(--accent-alpha-30);
+  transition: fill var(--transition-fast), y var(--transition-normal), height var(--transition-normal);
+  cursor: pointer;
+}
+
+.chart-bar:hover {
+  fill: var(--accent);
+}
+
+.chart-axis-line {
+  stroke: var(--border-glass);
+  stroke-width: 1px;
+}
+
+.chart-grid-line {
+  stroke: var(--border-glass);
+  stroke-width: 1px;
+  stroke-dasharray: 4 4;
+}
+
+.chart-text {
+  fill: var(--text-secondary);
+  font-size: 9px;
+  font-family: var(--font-body);
+}
+
+/* Productivity Pulse Circle */
+.pulse-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(var(--accent-rgb), 0.05);
+  border: 1px dashed var(--accent-alpha-30);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.pulse-indicator {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pulse-circle {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--accent-alpha-20);
+  animation: pulse-ring 2s cubic-bezier(0.215, 0.610, 0.355, 1) infinite;
+}
+
+.pulse-core {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  z-index: 1;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.35);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   Mood & Journal Component
+   ========================================================================== */
+.mood-picker {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.mood-btn {
+  flex-grow: 1;
+  padding: 10px;
+  border-radius: var(--radius-md);
+  background: var(--bg-button-secondary);
+  border: 1px solid var(--border-glass);
+  font-size: 1.3rem;
+  transition: all var(--transition-fast);
+}
+
+.mood-btn:hover {
+  background: var(--bg-button-secondary-hover);
+  transform: translateY(-2px);
+}
+
+.mood-btn.selected {
+  background: var(--accent-alpha-20);
+  border-color: var(--accent);
+  box-shadow: 0 0 12px var(--pulse-glow);
+}
+
+.journal-textarea {
+  width: 100%;
+  min-height: 90px;
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  resize: vertical;
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.journal-textarea:focus {
+  border-color: var(--accent);
+}
+
+.journal-history-list {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.journal-item {
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.01);
+  border-left: 2px solid var(--accent-secondary);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 0.85rem;
+}
+
+.journal-item-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+/* ==========================================================================
+   Modals & Popups
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-normal);
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-content {
+  background: var(--bg-glass);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border-glass-highlight);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: var(--shadow-lg);
+  transform: scale(0.9);
+  transition: transform var(--transition-normal);
+}
+
+.modal-overlay.open .modal-content {
+  transform: scale(1);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.shortcut-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border-glass);
+}
+
+.key-badge {
+  background: var(--bg-button-secondary-hover);
+  border: 1px solid var(--border-glass);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: var(--accent);
+}
+
+/* ==========================================================================
+   G.O.A.T. Expansions: Zen Breathing Circle & Todo Lists
+   ========================================================================== */
+
+/* Draggable / Hoverable task card items */
+.sound-card.active.sound-card {
+  border-style: solid;
+}
+
+.sound-card:hover .task-delete-btn {
+  color: var(--accent);
+  opacity: 1;
+}
+
+.task-checkbox:checked + div .task-title {
+  text-decoration: line-through;
+  color: var(--text-secondary) !important;
+}
+
+/* Zen Breathing Circle physics */
+.zen-breathing-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  background: var(--accent-alpha-10);
+  opacity: 0.15;
+  transform: scale(1);
+  transition: transform 4.0s cubic-bezier(0.4, 0, 0.2, 1), opacity 4.0s ease, box-shadow 4.0s ease, border-color 4.0s ease;
+}
+
+/* Breathing states */
+.zen-breathing-circle.inhale {
+  transform: scale(2.5);
+  opacity: 0.75;
+  border-color: var(--accent);
+  box-shadow: 0 0 35px var(--pulse-glow);
+}
+
+.zen-breathing-circle.hold-in {
+  transform: scale(2.5);
+  opacity: 0.9;
+  border-color: var(--accent-secondary);
+  box-shadow: 0 0 50px var(--pulse-glow);
+}
+
+.zen-breathing-circle.exhale {
+  transform: scale(1);
+  opacity: 0.15;
+  border-color: var(--accent);
+  box-shadow: none;
+}
+
+.zen-breathing-circle.hold-out {
+  transform: scale(1);
+  opacity: 0.1;
+  border-color: var(--border-glass-highlight);
+  box-shadow: none;
+}
+
+/* Utility opacity class */
+.opacity-50 {
+  opacity: 0.55;
+}
+
+/* ==========================================================================
+   Tabbed Layout Elements & Interactive Neon Custom Animations
+   ========================================================================== */
+
+/* Tabs panel system */
+.panel-tabs {
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid var(--border-glass);
+  margin-bottom: 18px;
+  padding-bottom: 8px;
+  overflow-x: auto;
+}
+
+.panel-tab-btn {
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  background: transparent;
+  transition: all var(--transition-fast) cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 600;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.panel-tab-btn:hover {
+  color: var(--text-primary);
+  background: var(--bg-button-secondary-hover);
+  transform: translateY(-1px);
+}
+
+.panel-tab-btn.active {
+  color: var(--text-primary);
+  background: var(--accent-alpha-20);
+  border-color: var(--accent);
+  box-shadow: 0 0 12px var(--pulse-glow);
+}
+
+.panel-tab-content {
+  display: none;
+}
+
+.panel-tab-content.active {
+  display: block;
+  animation: tab-fade-in var(--transition-normal) forwards;
+}
+
+@keyframes tab-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* G.O.A.T. Neon hover scales */
+button, .btn-primary, .btn-secondary, .btn-icon, .timer-adjust-btn, .mood-btn, .panel-tab-btn {
+  transition: all var(--transition-fast) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+button:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 0 14px var(--pulse-glow);
+}
+
+button:active {
+  transform: translateY(0) scale(0.96);
+}
+
+/* Sound cards interactive neon transitions */
+.sound-card {
+  transition: transform var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow var(--transition-normal),
+              border-color var(--transition-normal);
+}
+
+.sound-card:hover {
+  transform: translateY(-3px) scale(1.01);
+  border-color: var(--accent-alpha-30);
+  box-shadow: 0 6px 18px var(--accent-alpha-10);
+}
+
+.sound-card.active {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 18px var(--pulse-glow) !important;
+  animation: card-active-glow 2.5s infinite ease-in-out;
+}
+
+@keyframes card-active-glow {
+  0%, 100% {
+    box-shadow: 0 0 12px var(--accent-alpha-20);
+    border-color: var(--accent);
+  }
+  50% {
+    box-shadow: 0 0 20px var(--pulse-glow);
+    border-color: var(--accent-secondary);
+  }
+}
+
+/* Inputs, Textarea focus expansions */
+input, textarea, select {
+  transition: border-color var(--transition-fast),
+              box-shadow var(--transition-fast),
+              transform var(--transition-fast);
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 14px var(--pulse-glow) !important;
+  transform: scale(1.008);
+  outline: none;
+}
+
+/* Active running timer neon pulsing border */
+.timer-section.running {
+  animation: timer-running-pulse 2.2s infinite ease-in-out;
+  border-color: var(--accent);
+}
+
+@keyframes timer-running-pulse {
+  0%, 100% {
+    box-shadow: var(--shadow-md), 0 0 4px var(--accent-alpha-20);
+  }
+  50% {
+    box-shadow: var(--shadow-lg), 0 0 18px var(--pulse-glow);
+    border-color: var(--accent-secondary);
+  }
+}
+
+/* Interactive slider adjustments */
+.slider-input::-webkit-slider-thumb {
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.slider-input::-webkit-slider-thumb:hover {
+  transform: scale(1.3);
+  box-shadow: 0 0 10px var(--accent);
+}
+
+/* AI Companion Chat Styles (G.O.A.T. addition) */
+#chat-messages::-webkit-scrollbar {
+  width: 5px;
+}
+#chat-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+#chat-messages::-webkit-scrollbar-thumb {
+  background: var(--accent-alpha-30);
+  border-radius: 4px;
+}
+#chat-messages::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+.cursor-pulse {
+  animation: cursor-blink 0.9s infinite steps(2);
+  color: var(--accent);
+  margin-left: 2px;
+  font-weight: 700;
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+/* Explicit style for dropdown option lists to prevent browser whiteout bugs */
+select option {
+  background-color: var(--bg-app, #04020a) !important;
+  color: var(--text-primary, #f8fafc) !important;
+  font-family: inherit;
+  padding: 8px 12px;
+}
+
+/* Pomo Cycle Progress dots styling */
+.pomo-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  background: transparent;
+  transition: all 0.3s ease;
+  cursor: help;
+}
+.pomo-dot.filled {
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+}
+
+/* Subtle app footer */
+.app-footer {
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+  transition: opacity 0.5s ease;
+  font-family: 'Dancing Script', cursive;
+  font-size: 0.95rem;
+  font-weight: 500;
+  opacity: 0.35;
+}
+
+/* Distraction Badge pulsation */
+#distraction-count-badge {
+  box-shadow: 0 0 8px var(--accent);
+  animation: badge-pop 0.3s ease;
+}
+
+@keyframes badge-pop {
+  0% { transform: scale(0.8); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+
+
