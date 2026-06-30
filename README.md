@@ -294,13 +294,9 @@ vercel --prod
 
 Engineering • Design • Sound Synthesis
 
-Portfolio:
-https://github.com/mamidi-sumanth
-
 ---
 
 ## 📄 License
 
 Licensed under the MIT License.
 
-See the **LICENSE** file for details.
