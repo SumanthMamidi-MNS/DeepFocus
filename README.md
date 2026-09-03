@@ -16,7 +16,7 @@
 ---
 
 <a id="why-deepfocus"></a>
-## 🎯 Why DeepFocus Studio?
+## 🎯 Why DeepFocus?
 
 Most focus tools rely on repetitive audio loops that cause listening fatigue, bandwidth-heavy video streams, or invasive subscription paywalls. DeepFocus Studio was built on the premise that sustained cognitive flow requires zero-latency, private, procedural acoustics that adapt to your work.
 
