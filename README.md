@@ -1,9 +1,9 @@
 <div align="center">
 
-# ✦ Deep Focus
+# ✦ DeepFocus Studio
 ### *Adaptive Ambient Workspace & Real-Time Cognitive Flow Studio*
 
-**Synthesize real-time procedural acoustics, master precision focus cycles, and ground cognitive distractions—engineered with zero external runtimes.**
+**Mix organic ambient soundscapes, lock into deep focus sessions, and silence distractions directly in your browser.**
 
 [![Web Audio API](https://img.shields.io/badge/Web_Audio_API-Procedural-FF4081?style=for-the-badge&logo=audacity&logoColor=white&labelColor=020617)](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
 [![JavaScript](https://img.shields.io/badge/Vanilla_JS-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black&labelColor=020617)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
