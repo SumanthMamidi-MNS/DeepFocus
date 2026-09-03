@@ -5,17 +5,25 @@
 
 **Mix organic ambient soundscapes, lock into deep focus sessions, and silence distractions directly in your browser.**
 
-[![Web Audio API](https://img.shields.io/badge/Web_Audio_API-Procedural-FF4081?style=for-the-badge&logo=audacity&logoColor=white&labelColor=020617)](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
-[![JavaScript](https://img.shields.io/badge/Vanilla_JS-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black&labelColor=020617)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-[![IndexedDB](https://img.shields.io/badge/IndexedDB-Local--First-7C3AED?style=for-the-badge&logo=sqlite&logoColor=white&labelColor=020617)](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
-[![PWA Ready](https://img.shields.io/badge/PWA-Offline--First-06B6D4?style=for-the-badge&logo=pwa&logoColor=white&labelColor=020617)](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps)
-[![License: MIT](https://img.shields.io/badge/License-MIT-7df9ff?style=for-the-badge&logo=opensourceinitiative&logoColor=black&labelColor=020617)](./LICENSE)
+[![Web Audio API](https://img.shields.io/badge/Web_Audio_API-Procedural-FF4081?style=for-the-badge&logo=audacity&logoColor=white&labelColor=020617)](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API) [![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black&labelColor=020617)](https://developer.mozilla.org/en-US/docs/Web/JavaScript) [![IndexedDB](https://img.shields.io/badge/IndexedDB-Local--First-7C3AED?style=for-the-badge&logo=sqlite&logoColor=white&labelColor=020617)](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) [![PWA](https://img.shields.io/badge/PWA-Offline--First-06B6D4?style=for-the-badge&logo=pwa&logoColor=white&labelColor=020617)](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps)
 
-[![Try Deep Focus](https://img.shields.io/badge/▶_Try_Deep_Focus-Live_App-22c55e?style=for-the-badge&logo=vercel&logoColor=white&labelColor=020617)](https://deep-focus-three.vercel.app/)
+[![Try DeepFocus](https://img.shields.io/badge/▶_Try_DeepFocus-Live_Studio-22c55e?style=for-the-badge&logo=vercel&logoColor=white&labelColor=020617)](https://deep-focus-three.vercel.app/)
 
-[Key Highlights](#highlights) • [The Four Workspaces](#workspaces) • [Controls Matrix](#controls) • [Architecture](#architecture) • [Quickstart](#quickstart) • [Technology Stack](#tech-stack)
+[Why DeepFocus?](#why-deepfocus) • [Key Highlights](#highlights) • [The Four Workspaces](#workspaces) • [Controls Matrix](#controls) • [Architecture](#architecture) • [Quickstart](#quickstart) • [Technology Stack](#tech-stack)
 
 </div>
+
+---
+
+<a id="why-deepfocus"></a>
+## 🎯 Why DeepFocus Studio?
+
+Most focus tools rely on repetitive audio loops that cause listening fatigue, bandwidth-heavy video streams, or invasive subscription paywalls. DeepFocus Studio was built on the premise that sustained cognitive flow requires zero-latency, private, procedural acoustics that adapt to your work.
+
+- ⚡ **Zero-Fatigue Procedural Audio** — Generates infinite, non-looping soundscapes in real time via the Web Audio API, eliminating auditory pattern fatigue.
+- 🚀 **Frictionless Zero-Install Engine** — Instant in-browser launch with offline PWA caching, zero account signups, and zero runtime dependencies.
+- 🔒 **100% Local-First Sovereignty** — Zero tracking pixels, telemetry, or cloud databases; all focus logs and reflections remain locked in IndexedDB.
+- 💼 **Engineered for High-Cognition Work** — Built for software engineers in deep coding sprints, technical writers, and researchers demanding unbroken flow.
 
 ---
 
