@@ -7,7 +7,7 @@
 
 [![Web Audio API](https://img.shields.io/badge/Web_Audio_API-Procedural-FF4081?style=for-the-badge&logo=audacity&logoColor=white&labelColor=020617)](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API) [![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black&labelColor=020617)](https://developer.mozilla.org/en-US/docs/Web/JavaScript) [![IndexedDB](https://img.shields.io/badge/IndexedDB-Local--First-7C3AED?style=for-the-badge&logo=sqlite&logoColor=white&labelColor=020617)](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) [![PWA](https://img.shields.io/badge/PWA-Offline--First-06B6D4?style=for-the-badge&logo=pwa&logoColor=white&labelColor=020617)](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps)
 
-[![Try DeepFocus](https://img.shields.io/badge/▶_Try_DeepFocus-Live_Studio-22c55e?style=for-the-badge&logo=vercel&logoColor=white&labelColor=020617)](https://deep-focus-three.vercel.app/)
+[![Try DeepFocus](https://img.shields.io/badge/Try_DeepFocus-Live_Studio-22c55e?style=for-the-badge&logo=vercel&logoColor=white&labelColor=020617)](https://deep-focus-three.vercel.app/)
 
 [Why DeepFocus?](#why-deepfocus) • [Key Highlights](#highlights) • [The Four Workspaces](#workspaces) • [Controls Matrix](#controls) • [Architecture](#architecture) • [Quickstart](#quickstart) • [Technology Stack](#tech-stack)
 
